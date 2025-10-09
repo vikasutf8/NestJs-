@@ -1,3 +1,4 @@
+import { DataSource } from 'typeorm';
 import { PostgresConnectionOptions } from 'typeorm/driver/postgres/PostgresConnectionOptions.js';
 
 const config: PostgresConnectionOptions = {
@@ -9,6 +10,12 @@ const config: PostgresConnectionOptions = {
   database: process.env.DB_NAME || 'blog_nestjs',
   entities: [__dirname + '/**/*.entity{.ts,.js}'],
   synchronize: true,
+  migrationsTableName: 'migrations',
+  migrations: [__dirname + '/migrations/**/*{.ts,.js}'],
 };
+
+const AppDataSource = new DataSource(config);
+
+export { AppDataSource };
 
 export default config;

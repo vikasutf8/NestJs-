@@ -16,3 +16,16 @@
 7.   GRANT ALL PRIVILEGES ON ALL FUNCTIONS IN SCHEMA public TO devuser;
 
 - TypeORM Entity <---> Postgres Table
+
+### Migrations
+- db:crop - Drop database :::
+"db:drop": "typeorm-ts-node-commonjs schema:drop -d src/ormconfig.ts",
+   
+- migration: create - Create migration :::
+
+  - "migration:generate": "typeorm-ts-node-commonjs migration:generate -d src/ormconfig.ts src/migrations/$npm_config_name", 
+ ```
+ npm run migration:generate --name=create-article-table
+ ```
+- migration:run - Apply all new changes :::
+"migration:run": "typeorm-ts-node-commonjs migration:run -d src/ormconfig.ts"
