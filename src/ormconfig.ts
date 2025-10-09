@@ -7,6 +7,7 @@ const config: PostgresConnectionOptions = {
   username: process.env.DB_USER || 'postgres',
   password: process.env.DB_PASSWORD || 'newpassword',
   database: process.env.DB_NAME || 'blog_nestjs',
+  entities: [__dirname + '/**/*.entity{.ts,.js}'],
   synchronize: true,
 };
 
