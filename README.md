@@ -1,5 +1,3 @@
-
-
 # Model
 
 - Tag
@@ -7,25 +5,64 @@
 - article
 
 # Postgres - TypeORM
+
 1. psql-U usename -d databasename -h your_host -p your_port g
 2. CREATE DATABASE blog;
 3. CREATE USER devuser WITH ENCRYPTED PASSWORD '1234';
 4. GRANT ALL PRIVILEGES ON DATABASE blog TO devuser;
 5. GRANT ALL PRIVILEGES ON ALL TABLES IN SCHEMA public TO devuser;
-6.  GRANT ALL PRIVILEGES ON ALL SEQUENCES IN SCHEMA public TO devuser;
-7.   GRANT ALL PRIVILEGES ON ALL FUNCTIONS IN SCHEMA public TO devuser;
+6. GRANT ALL PRIVILEGES ON ALL SEQUENCES IN SCHEMA public TO devuser;
+7. GRANT ALL PRIVILEGES ON ALL FUNCTIONS IN SCHEMA public TO devuser;
 
 - TypeORM Entity <---> Postgres Table
 
 ### Migrations
-- db:crop - Drop database :::
-"db:drop": "typeorm-ts-node-commonjs schema:drop -d src/ormconfig.ts",
-   
-- migration: create - Create migration :::
 
-  - "migration:generate": "typeorm-ts-node-commonjs migration:generate -d src/ormconfig.ts src/migrations/$npm_config_name", 
- ```
- npm run migration:generate --name=create-article-table
- ```
+- db:crop - Drop database :::
+  "db:drop": "typeorm-ts-node-commonjs schema:drop -d src/ormconfig.ts",
+- migration: create - Create migration :::
+  - "migration:generate": "typeorm-ts-node-commonjs migration:generate -d src/ormconfig.ts src/migrations/$npm_config_name",
+
+```
+npm run migration:generate --name=create-article-table
+```
+
 - migration:run - Apply all new changes :::
-"migration:run": "typeorm-ts-node-commonjs migration:run -d src/ormconfig.ts"
+  "migration:run": "typeorm-ts-node-commonjs migration:run -d src/ormconfig.ts"
+
+---
+
+## API Endpoints
+
+### Register User
+
+POST /api/user/register
+Request Body
+```json
+{
+  "user": {
+    "firstName": "viaks",
+    "lastName": "asdfgasd",
+    "email": "vikas45@gamil.com",
+    "password": "fasdfasdfafsadfs d",
+    "bio": "",
+    "profilePicture": ""
+  }
+}
+```
+
+Response
+
+```json
+{
+  "user": {
+    "id": 6,
+    "firstName": "viaks",
+    "lastName": "asdfgasd",
+    "email": "vikas45@gamil.com",
+    "password": "$2b$10$0rE26m04/EJauxSZfNQGbuRawJcgAGO.FgApZvr3Bc...jsVoSLC6",
+    "bio": "",
+    "profilePicture": ""
+  }
+}
+```

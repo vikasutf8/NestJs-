@@ -16,4 +16,8 @@ export class CreateUserDto {
 
   @IsNotEmpty({ message: 'Password is required' })
   password: string;
+
+  bio: string;
+
+  profilePicture?: string;
 }
