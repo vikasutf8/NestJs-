@@ -54,3 +54,17 @@ pids
 
 # Diagnostic reports (https://nodejs.org/api/report.html)
 report.[0-9]*.[0-9]*.[0-9]*.[0-9]*.json
+
+.development.env
+.test.env
+.production.env
+compose.yml
+compose.*.yml
+docker-compose.yml
+docker-compose.*.yml
+.Dockerfile
+Dockerfile.*
+npm-shrinkwrap.json
+package-lock.json
+yarn.lock
+pnpm-lock.yaml
