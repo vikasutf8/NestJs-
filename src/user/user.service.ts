@@ -97,4 +97,23 @@ export class UserService {
 
     return this.generateUserResponse(user);
   }
+
+  async FindbyId(id: number): Promise<UserEntity> {
+    const user = await this.userRepository.findOne({
+      where: { id },
+    });
+
+    if (!user) {
+      throw new HttpException(
+        {
+          statusCode: STATUS_CODES.UNPROCESSABLE_ENTITY,
+          message: 'User not found',
+          error: 'Unprocessable Entity',
+        },
+        HttpStatus.UNPROCESSABLE_ENTITY,
+      );
+    }
+    return user;
+  }
+
 }

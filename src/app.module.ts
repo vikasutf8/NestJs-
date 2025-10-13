@@ -26,4 +26,6 @@ import config from './ormconfig';
   controllers: [AppController],
   providers: [AppService],
 })
+
+
 export class AppModule {}

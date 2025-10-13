@@ -1,7 +1,9 @@
 import {
   Body,
   Controller,
+  Get,
   Post,
+  Req,
   UsePipes,
   ValidationPipe,
 } from '@nestjs/common';
@@ -25,4 +27,11 @@ export class UserController {
   async userLogin(@Body() loginUserDto: LoginUserDto): Promise<IUserResponse> {
     return await this.userService.userLogin(loginUserDto);
   }
+
+  @Get('me')
+  getUser(@Req() req: Request): Promise<IUserResponse> {
+    return 'fasdfkjasbndf' as any;
+  }
+
+ 
 }

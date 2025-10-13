@@ -1,10 +1,16 @@
-import { Module } from '@nestjs/common';
+import {
+  MiddlewareConsumer,
+  Module,
+  NestModule,
+  RequestMethod,
+} from '@nestjs/common';
 import { UserService } from './user.service';
 import { UserController } from './user.controller';
 import { JwtModule } from '@nestjs/jwt';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { UserEntity } from './user.entity';
 import { jwtConstants } from './constant/jwt.constant';
+import { AuthMiddleware } from './auth-middleware/auth-middleware.middleware';
 
 @Module({
   imports: [
@@ -17,5 +23,12 @@ import { jwtConstants } from './constant/jwt.constant';
   ],
   providers: [UserService],
   controllers: [UserController],
+  exports: [UserService],
 })
-export class UserModule {}
+export class UserModule implements NestModule {
+  configure(consumer: MiddlewareConsumer) {
+    consumer
+      .apply(AuthMiddleware)
+      .forRoutes({ path: '*', method: RequestMethod.ALL });
+  }
+}
