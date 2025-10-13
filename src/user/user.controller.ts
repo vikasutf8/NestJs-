@@ -11,6 +11,8 @@ import { UserService } from './user.service';
 import { CreateUserDto } from './dtos/createUser.dto';
 import { LoginUserDto } from './dtos/loginUser.dto';
 import { IUserResponse } from './userResponse.interface';
+import { User } from './decoraters/user.decorater';
+import { UserEntity } from './user.entity';
 
 @Controller('user')
 export class UserController {
@@ -29,8 +31,9 @@ export class UserController {
   }
 
   @Get('me')
-  getUser(@Req() req: Request): Promise<IUserResponse> {
-    const profileUser = req['user'] as Promise<IUserResponse>;
-    return profileUser;
+  getUser(@User() user: UserEntity): Promise<IUserResponse> {
+    // console.log(user, 'user');
+
+    return this.userService.FindbyId(user.id);
   }
 }

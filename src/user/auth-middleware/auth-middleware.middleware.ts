@@ -34,7 +34,7 @@ export class AuthMiddleware implements NestMiddleware {
         error: error?.message as unknown as string,
       });
     }
-
+    // console.log(req['user'], 'user token');
     next();
   }
 }

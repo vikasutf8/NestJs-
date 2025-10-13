@@ -98,7 +98,7 @@ export class UserService {
     return this.generateUserResponse(user);
   }
 
-  async FindbyId(id: number): Promise<UserEntity> {
+  async FindbyId(id: number): Promise<IUserResponse> {
     const user = await this.userRepository.findOne({
       where: { id },
     });
@@ -113,7 +113,6 @@ export class UserService {
         HttpStatus.UNPROCESSABLE_ENTITY,
       );
     }
-    return user;
+    return this.generateUserResponse(user);
   }
-
 }
