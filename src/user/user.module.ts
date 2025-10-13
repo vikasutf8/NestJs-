@@ -18,7 +18,7 @@ import { AuthMiddleware } from './auth-middleware/auth-middleware.middleware';
     JwtModule.register({
       global: true,
       secret: jwtConstants.secret,
-      signOptions: { expiresIn: '60s' },
+      signOptions: { expiresIn: '3600s' },
     }),
   ],
   providers: [UserService],
@@ -29,6 +29,6 @@ export class UserModule implements NestModule {
   configure(consumer: MiddlewareConsumer) {
     consumer
       .apply(AuthMiddleware)
-      .forRoutes({ path: '*', method: RequestMethod.ALL });
+      .forRoutes({ path: 'user/me', method: RequestMethod.ALL });
   }
 }

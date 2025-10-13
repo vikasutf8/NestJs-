@@ -30,8 +30,7 @@ export class UserController {
 
   @Get('me')
   getUser(@Req() req: Request): Promise<IUserResponse> {
-    return 'fasdfkjasbndf' as any;
+    const profileUser = req['user'] as Promise<IUserResponse>;
+    return profileUser;
   }
-
- 
 }
