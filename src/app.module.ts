@@ -14,7 +14,7 @@ import config from './ormconfig';
     UserModule,
     ArticleModule,
     // eslint-disable-next-line @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-member-access
-    ConfigModule.forRoot({ isGlobal: true }), // global config
+    ConfigModule.forRoot({ isGlobal: true, envFilePath: '.env' }), // global config
     TypeOrmModule.forRoot({
       ...config,
       synchronize: true,
