@@ -66,3 +66,18 @@ Response
   }
 }
 ```
+
+
+### Daigrams
+[internalflows.png]()
+
+#### Middleware vs Decorator vs Guard vs Interceptor vs Pipe 
+- Middleware: "Global request/response pre-processing—great for logging, CORS, attaching user info."
+
+- Guard: "Decides if a request can access a route—ideal for authentication and RBAC."
+
+- Interceptor: "Transforms or logs requests/responses around handlers—powerful for output mapping, caching, and global error formatting."
+
+- Pipe: "Ensures and transforms data before reaching business logic—commonly used for validation and type coercion."
+
+- Decorator: "Adds structure and metadata at design time, like mapping controllers, injecting dependencies, or annotating parameters."
