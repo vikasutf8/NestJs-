@@ -4,6 +4,8 @@ import { AppService } from './app.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { AppDataSource } from 'db/data_source';
 import { ConfigModule } from '@nestjs/config';
+import { TestModule } from './test/test.module';
+import { UsersModule } from './users/users.module';
 
 @Module({
   imports: [
@@ -13,6 +15,8 @@ import { ConfigModule } from '@nestjs/config';
       envFilePath: '.env',
       // load: [AppDataSource],
     }),
+    TestModule,
+    UsersModule,
   ],
   controllers: [AppController],
   providers: [AppService],
