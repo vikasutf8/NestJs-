@@ -8,6 +8,7 @@ import { TestModule } from './test/test.module';
 import { UsersModule } from './users/users.module';
 import { CurrentUserMiddleware } from './shared/middleware/current-user.middleware';
 import { LoggerMiddleware } from './shared/middleware/logger.middleware';
+import { CategoriesModule } from './categories/categories.module';
 
 @Module({
   imports: [
@@ -19,6 +20,7 @@ import { LoggerMiddleware } from './shared/middleware/logger.middleware';
     }),
     TestModule,
     UsersModule,
+    CategoriesModule,
   ],
   controllers: [AppController],
   providers: [AppService],
