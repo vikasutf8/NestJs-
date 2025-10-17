@@ -19,6 +19,7 @@ import { AuthGuard } from '@nestjs/passport';
 import { AuthenticateGuard } from 'src/shared/guards/authenticate.gurad';
 import { AuthorizeRoles } from 'src/shared/decorators/authorize-role.decorator';
 import { AuthorizationGuard } from 'src/shared/guards/authorization.guard';
+import { UserRole } from 'src/shared/common/user-role.enum';
 
 @Controller('users')
 export class UsersController {
@@ -41,8 +42,8 @@ export class UsersController {
     return { user, access_token };
   }
 
-  @AuthorizeRoles('admin')
-  @UseGuards(AuthenticateGuard,AuthorizationGuard)
+  // @AuthorizeRoles(UserRole.ADMIN)
+  @UseGuards(AuthenticateGuard,AuthorizationGuard([UserRole.ADMIN]))
   @Get()
   findAll(): Promise<UserEntity[]> {
     return this.usersService.findAll();
