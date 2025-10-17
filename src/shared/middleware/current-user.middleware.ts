@@ -23,7 +23,8 @@ export class CurrentUserMiddleware implements NestMiddleware {
   async use(req: Request, res: Response, next: NextFunction) {
     const authHeader = req.headers.authorization || req.headers.Authorization;
     if (authHeader && typeof authHeader === 'string' && authHeader.startsWith('Bearer ')) {
-      const token = authHeader.split(' ')[1];
+     try {
+         const token = authHeader.split(' ')[1];
       console.log(token);
     // req.currentUser = verifyToken(token); // Assuming verifyToken is a function that verifies the JWT and returns the user payload
         const usertoken = verify(token, process.env.JWT_SECRET!);
@@ -32,9 +33,14 @@ export class CurrentUserMiddleware implements NestMiddleware {
         const currentUser = await this.usersService.findOne(+id);
     //   req['currentUser'] =
         req.currentUser = currentUser;
+     } catch (error) {
+        req.currentUser = null;
+
+     }
     } else {
     //   req['currentUser'] = null;
         req.currentUser = null;
+        return;
     }
     next();
   }
