@@ -13,6 +13,7 @@ import { UpdateUserDto } from './dto/update-user.dto';
 import { RegisterUserDto } from './dto/user-register.dto';
 import { UserEntity } from './entities/user.entity';
 import { SignInUserDto } from './dto/user-signIn.dto';
+import { CurrentUserDecorator } from 'src/shared/decorators/current-user.decorator';
 
 @Controller('users')
 export class UsersController {
@@ -35,19 +36,27 @@ export class UsersController {
     return { user, access_token };
   }
 
-  @Post()
-  create(@Body() createUserDto: CreateUserDto) {
-    return this.usersService.create(createUserDto);
-  }
 
   @Get()
-  findAll() {
+  findAll(): Promise<UserEntity[]> {
     return this.usersService.findAll();
   }
 
   @Get(':id')
-  findOne(@Param('id') id: string) {
+  findOne(@Param('id') id: string) : Promise<UserEntity> {
     return this.usersService.findOne(+id);
+  }
+
+  @Get('me')
+  getMe(@CurrentUserDecorator() currentUser :UserEntity) {
+    return currentUser;
+  }
+
+
+
+  @Post()
+  create(@Body() createUserDto: CreateUserDto) {
+    return this.usersService.create(createUserDto);
   }
 
   @Patch(':id')
