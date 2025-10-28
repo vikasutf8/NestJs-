@@ -34,4 +34,7 @@ export class OrderEntity {
     @OneToMany(() => OrdersProductsEntity, (orderProduct) => orderProduct.order, {cascade: true})
     products: OrdersProductsEntity[];
 
+    @ManyToOne(()=>UserEntity,(user)=>user.order)
+    userCreated :UserEntity
+
 }
