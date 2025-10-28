@@ -1,10 +1,13 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, UseGuards } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, UseGuards, Put } from '@nestjs/common';
 import { OrdersService } from './orders.service';
 import { CreateOrderDto } from './dto/create-order.dto';
 import { UpdateOrderDto } from './dto/update-order.dto';
 import { AuthenticateGuard } from 'src/shared/guards/authenticate.gurad';
 import { CurrentUserDecorator } from 'src/shared/decorators/current-user.decorator';
 import { UserEntity } from 'src/users/entities/user.entity';
+import { AuthorizationGuard } from 'src/shared/guards/authorization.guard';
+import { UserRole } from 'src/shared/common/user-role.enum';
+import { UpdateOrderStatusDto } from './dto/update-order-status.dto';
 
 @Controller('orders')
 export class OrdersController {
@@ -17,18 +20,25 @@ export class OrdersController {
   }
 
   @Get()
-  findAll() {
-    return this.ordersService.findAll();
+  async findAll() {
+    return await this.ordersService.findAll();
   }
 
   @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.ordersService.findOne(+id);
+  async findOne(@Param('id') id: string) {
+    return  await this.ordersService.findOne(+id);
   }
 
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updateOrderDto: UpdateOrderDto) {
-    return this.ordersService.update(+id, updateOrderDto);
+  @UseGuards(AuthenticateGuard,AuthorizationGuard([UserRole.ADMIN]))
+  @Put(':id')
+  async update(@Param('id') id: string, @Body() updateOrderDto: UpdateOrderDto, updateOrderStatusDto :UpdateOrderStatusDto,@CurrentUserDecorator() currentUser : UserEntity) {
+    return await this.ordersService.update(+id, updateOrderDto,updateOrderStatusDto,currentUser);
+  }
+
+  @Put(':id')
+  @UseGuards(AuthenticateGuard,AuthorizationGuard([UserRole.ADMIN]))
+  async cancelled(@Param('id') id: string,@CurrentUserDecorator() currentUser : UserEntity){
+return await this.ordersService.cancelled(+id,currentUser);
   }
 
   @Delete(':id')
